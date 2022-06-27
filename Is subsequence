@@ -1,0 +1,17 @@
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        sub_list = list(s)
+        super_list = list(t)
+        char_found= [False for c in sub_list]
+        index = 0
+        for i in range(len(sub_list)):
+            for j in range(index,len(super_list)):
+                if j <= len(super_list):
+                    if sub_list[i] == super_list[j]:
+                        index = j+1
+                        char_found[i] = True
+                        break
+        for b in char_found:
+            if b == False:
+                return False
+        return True
