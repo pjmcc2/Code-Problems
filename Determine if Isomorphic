@@ -1,0 +1,27 @@
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        str_num_map = {}
+        str1 = list(s)
+        seen = set()
+        char_list = [x for x in str1 if not (x in seen or seen.add(x))]
+        str1_nums = []
+        for i in range(len(char_list)) :
+            str_num_map[char_list[i]] = i
+        for ltr in str1:
+            str1_nums.append(str_num_map[ltr])
+        # reset vars
+        str2_nums = []
+        str_num_map = {}
+        str2 = list(t)
+        seen = set()
+        char_list = [x for x in str2 if not (x in seen or seen.add(x))]
+
+        for i in range(len(char_list)) :
+            str_num_map[char_list[i]] = i
+        for ltr in str2:
+            str2_nums.append(str_num_map[ltr])
+        print(s,str1_nums,t,str2_nums)
+        if str1_nums == str2_nums:
+            return True
+        else:
+            return False
