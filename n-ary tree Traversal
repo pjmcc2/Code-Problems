@@ -1,0 +1,12 @@
+class Solution:
+    def preorder(self, root: 'Node') -> List[int]:
+        curr_node = root
+        output = []
+        if curr_node is not None:
+            output.append(curr_node.val)
+            if curr_node.children is None:
+                return output
+            for child in curr_node.children:
+                new_sol = Solution()
+                output += new_sol.preorder(child)
+        return output
