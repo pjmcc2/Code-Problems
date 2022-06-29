@@ -1,0 +1,17 @@
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        output = []
+        curr_level = []
+        next_level = []
+        if root is not None:
+            curr_level.append(root)
+        while len(curr_level) > 0:    
+            for n in curr_level:
+                if n.left is not None:
+                    next_level.append(n.left)
+                if n.right is not None:
+                    next_level.append(n.right)
+            output.append([c.val for c in curr_level])
+            curr_level = next_level
+            next_level = []
+        return output
