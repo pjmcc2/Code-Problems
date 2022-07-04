@@ -1,0 +1,48 @@
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def isAnc(node,target,path=[]): # target is be p.val/q.val
+            left_flag = None
+            if node:
+                if node.val == target:
+                    path.append(node)
+                    return True
+                if node.left:
+                    if node.left in path:
+                        path.append(node)
+                        return True
+                    elif isAnc(node.left,target,path):
+                        path.append(node)
+                        return True
+                    else:
+                        left_flag =False
+                else: 
+                    left_flag = False
+                if node.right:
+                    if node.right in path:
+                        path.append(node)
+                        return True
+                    elif isAnc(node.right,target,path):
+                        path.append(node)
+                        return True
+                    else:
+                        right_flag = False
+                else:
+                    right_flag = False
+                return left_flag or right_flag
+            return False
+        path_p = []
+        path_q = []
+        isAnc(root,p.val,path_p)
+        isAnc(root,q.val,path_q)
+        
+        
+        if path_p[-1] != path_p[-1]:
+            return -1
+        while (len(path_q) > 0) and (len(path_p)>0):
+            if (path_p[-1] == path_q[-1]):
+                path_q.pop(-1)
+                lca = path_p.pop(-1)
+            else:
+                break
+            #print(lca)#for debugging
+        return lca
