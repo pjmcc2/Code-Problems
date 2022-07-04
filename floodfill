@@ -1,0 +1,28 @@
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        seen_already = set()
+        couple = collections.deque()
+        curr_pixel = (sr,sc)
+        
+        couple.append(curr_pixel)
+        while couple:
+            curr_pixel = couple.popleft()
+            
+            if curr_pixel in seen_already:
+                continue
+            seen_already.add(curr_pixel)    
+            i,j = curr_pixel
+            if i > 0:
+                if image[i-1][j] == image[i][j]:
+                    couple.append((i-1,j))
+            if j > 0:
+                if image[i][j-1] == image[i][j]:
+                    couple.append((i,j-1))
+            if i < (len(image) - 1):
+                if image[i+1][j] == image[i][j]:
+                    couple.append((i+1,j))
+            if j < (len(image[0])-1):
+                if image[i][j+1] == image[i][j]:
+                    couple.append((i,j+1))
+            image[i][j] = color
+        return image
