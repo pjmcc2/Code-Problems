@@ -1,0 +1,40 @@
+class Solution:
+    def findAnagrams(self, s: str, p: str):
+        i1, i2 = 0, len(p) - 1
+        result = []
+        lttrs = list(p)
+        an_found=False
+        while i2 < len(s):
+            delta = len(p)
+            curr_index = i1
+            if an_found:
+                if s[i1-1] == s[i2]:
+                    result.append(curr_index)
+                    i1 = curr_index + 1
+                    i2 += 1
+                    continue
+                else:
+                    an_found = False
+                    if s[i2] not in lttrs:
+                        curr_index = i1 #temp
+                        i1 += i2-i1+1  # skip length of window
+                        i2 += i2-curr_index+1
+                    else:
+                        i1+=1
+                        i2+=1
+                    continue
+            while i1 <= i2:
+                if s[i1] in lttrs:
+                    lttrs.remove(s[i1])
+                    delta -= 1
+                i1 += 1
+            lttrs = list(p)
+            if delta == 0:
+                an_found = True
+                result.append(curr_index)
+                i1 = curr_index + 1
+                i2 += 1
+            else:
+                i1 = curr_index + delta
+                i2 += delta
+        return result
