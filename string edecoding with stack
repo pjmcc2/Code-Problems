@@ -1,0 +1,23 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack = []
+        curr = None
+        sub = ""
+        mult = ''
+        for l in s:
+            if l == '[' or l.isnumeric() or l.isalpha():
+                stack.append(l)
+            elif l ==']':
+                curr = stack.pop()
+                while curr != '[':
+                    sub = "" + curr + sub
+                    curr = stack.pop()
+                while stack and stack[-1].isnumeric():
+                    curr = stack.pop()
+                    mult = '' + curr + mult
+                sub = sub * int(mult)
+                mult = ''
+                for i in sub:
+                    stack.append(i)
+                sub=''
+        return "".join(stack)
