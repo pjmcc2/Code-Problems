@@ -1,0 +1,16 @@
+class Solution:
+    def characterReplacement(self, s: str, k):
+        freq = [0 for v in range(26)] #This counts letter freqeuncy in the moving window
+        i = 0
+        j = 0
+        curr_max=0
+        while j < len(s):
+            freq[ord(s[j])-65] +=1 # add new ltr to freq list as it enters window (as ascii number A=65)
+            curr_max = max(max(freq),curr_max)
+            if j-i+1-curr_max <= k:
+                j +=1
+            else:
+                freq[ord(s[i])-65] -= 1 #window moves along by one so the "first" ltr in the window is being removed
+                i+=1
+                j+=1
+        return min(curr_max+k,len(s)) # this checks for the case where the entire string is the same/ k-n away
