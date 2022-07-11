@@ -1,0 +1,15 @@
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        seen = set()
+        curr_num = n
+        while True:
+            dgt = list(str(curr_num))
+            if curr_num not in seen:
+                seen.add(curr_num)
+            else:
+                return False
+            curr_num = 0
+            for el in dgt:
+                curr_num += int(el)**2
+            if curr_num == 1:
+                return True
