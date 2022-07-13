@@ -1,0 +1,19 @@
+class Solution:
+    def spiralOrder(self, matrix):
+        hl, vl = [0, len(matrix[0])], [0, len(matrix)]
+        res = []
+        while len(res) < len(matrix) * len(matrix[0]):
+            for i in range(hl[0], hl[1]):
+                res.append(matrix[hl[0]][i])
+            vl[0] += 1
+            for i in range(vl[0], vl[1]):
+                res.append(matrix[i][hl[1] - 1])
+            hl[1] -= 1
+            for i in range(hl[1]-1, hl[0]-1,-1):  # inclusive
+                res.append(matrix[vl[1] - 1][i])
+            vl[1] -= 1
+            for i in range(vl[1] - 1, vl[0] - 1,-1):
+                res.append(matrix[i][hl[0]])
+            hl[0] += 1
+
+        return res[:len(matrix)*len(matrix[0])]
